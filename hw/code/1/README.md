@@ -99,10 +99,6 @@ usage: easy_install-script.py [options] requirement_or_url ...
    or: easy_install-script.py --help
 
 
-E:\nkrishn\Python\Test>sudo pip install rerun
-'sudo' is not recognized as an internal or external command,
-operable program or batch file.
-
 E:\nkrishn\Python\Test>pip install rerun
 ←[33mYou are using pip version 7.0.3, however version 7.1.2 is available.
 You should consider upgrading via the 'python -m pip install --upgrade pip' command.←[0m
