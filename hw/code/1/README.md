@@ -1,7 +1,7 @@
 Part 1:
 
 Screen snap of the top level of my repo
-
+![ScreenShot](https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/1/screen%20shot%20of%2079115nik.JPG)
 
 Part 2:
 
