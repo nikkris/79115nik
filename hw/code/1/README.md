@@ -25,5 +25,10 @@ Installing collected packages: rerun
 Successfully installed rerun-1.0.26
 
 Part 3:
+Python IDE:
+
+![PyIDE] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/1/PythonIDE.JPG)
 
 Part 4:
+
+![rerun] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/1/PythonIDE.JPG)
