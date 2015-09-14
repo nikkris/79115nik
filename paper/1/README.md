@@ -5,6 +5,8 @@ Combining search-based and constraint-based testing
 [i] Reference:
 Jan Malburg and Gordon Fraser. 2011. Combining search-based and constraint-based testing. In Proceedings of the 2011 26th IEEE/ACM International Conference on Automated Software Engineering (ASE '11). IEEE Computer Society, Washington, DC, USA, 436-439. DOI=10.1109/ASE.2011.6100092 http://dx.doi.org/10.1109/ASE.2011.6100092
 
+http://dl.acm.org/citation.cfm?id=2190094
+
 [ii] Important keywords:
 
 [ii1] White box testing: Task of generating suitable inputs for programs using the program’s source code. This testing make use of internal structure of an application in addition to functionality.
