@@ -2,6 +2,8 @@ Almost all chapter 3 exercises are writtne sequentially in think3.py file. The r
 
 Exercise 3.1:
 
+Has error as the definition comes after the call.
+
 ![Ex3_1] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/Ex3_1.JPG)
 
 Exercise 3.2:
@@ -9,6 +11,8 @@ Exercise 3.2:
 ![Ex_3_2] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/Ex3_2.JPG)
 
 Exercise 3.3:
+
+Added logic to handle strings of length greater than 70.
 
 ![Ex_3_3] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/Ex3_3.JPG)
 
