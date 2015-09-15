@@ -28,6 +28,14 @@ Exercise 5:
 
 Exercises 4.2, 4.3:
 
+4.2 Flower outputs:
+
+![f1] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/think4/4_2_f1.JPG)
+![f2] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/think4/4_2_f2.JPG)
+![f3] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/think4/4_2_f3.JPG)
+
+4.3
+
 
 
 
