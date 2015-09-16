@@ -34,7 +34,11 @@ Exercises 4.2, 4.3:
 ![f2] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/think4/4_2_f2.JPG)
 ![f3] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/think4/4_2_f3.JPG)
 
-4.3
+4.3 Pie outputs:
+
+![f13] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/think4/4_3_f1.JPG)
+![f23] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/think4/4_3_f2.JPG)
+![f33] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/2/think4/4_3_f3.JPG)
 
 
 
