@@ -19,9 +19,6 @@ def pie(tur,r,n):
     for lp in range(n):
         isotriangle(tur,r,isoangle)
         rt(tur,180)
-    
-
-
 
 
 world = TurtleWorld()
