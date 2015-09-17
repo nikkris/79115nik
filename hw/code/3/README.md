@@ -3,7 +3,7 @@ File: bdayParadox.py
 
 The output screen shot is as follows:
 
-![BdayParadox] ()
+![BdayParadox] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/3/BdayParadox.JPG)
 
 Thus probability is close to 0.5.
 
