@@ -31,4 +31,4 @@ Python IDE:
 
 Part 4:
 
-![rerun] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/1/PythonIDE.JPG)
+![rerun] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/1/okok.JPG)
