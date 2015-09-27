@@ -4,8 +4,9 @@ In this simulation, in the first part, a random experiment is performed to deter
 For the printout, 
 1. '!' is used only when the solution is better in retries
 
-2. Local improvements are shown using '+' 
+2. Local improvements are shown using '+'
 
+3. Local degradation are shown using '?'
 
 4. The first column is number of simulations
 
