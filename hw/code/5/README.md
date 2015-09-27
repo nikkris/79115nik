@@ -9,7 +9,7 @@ For the printout,
 5. The second column is normalized energy
 6. Higher the normalized energy, the better the solution
 
-The output of the MaxWalkSat algorithm is as follows
+The output of the MaxWalkSat algorithm is as follows:
 
 ![Output] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/5/ResultMWS1.png)
 
