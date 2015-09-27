@@ -2,86 +2,177 @@ __author__ = 'nkrishn'
 
 import random
 import math
+import copy
 
-# compute normalization values
-def MaxMinEnergy(r):
-    minimum = sum(Schaffer(random.uniform(r[0],r[1])))
-    maximum = minimum
+# Multi-objective problem
+class Osyczka2:
+    def __init__(self):
+        """
 
-    for i in range(100):
-        test = sum(Schaffer(random.uniform(r[0],r[1])))
-        if test< minimum:
-            minimum = test
-        if test> maximum:
-            maximum = test
-        # minimum = 0 # to avoid problem with minimization
+        :rtype : object
+        """
+        self.probability = 0.5
+        self.retries = 10
+        self.changes = 1000
+        self.maximization = True
+        self.minEnergy = -400
+        self.maxEnergy = 150
+        self.num_decision = 6
+        self.min_decision = [0,0,1,0,1,0]
+        self.max_decision = [10,10,5,6,5,10]
+        self.stepsize = 10
+        self.timeout = 1000
 
-    return (maximum,minimum)
+    def eval_Osyczka2(self,x):
+        """
+        x is a list
+        :rtype : (f1, f2)
+        """
+        if (len(x)==6):
+            f1 = -(25*(x[0]-2)**2 + (x[1]-2)**2 + (x[2]-1)**2*(x[3]-4)**2 + (x[4]-1)**2)
+            f2 = sum([xi**2 for xi in x])
+            return (f1,f2)
+        else:
+            print "Error in number of arguments"
 
-# multi-objective model: Schaffer
-def Osyczka2(x):
-    """
-    :rtype : (f1, f2)
-    """
+    def norm_energy(self,state):
+        # return (sum(Osyczka2(state))-Min)/(Max-Min)
+        return (sum(self.eval_Osyczka2(state))-self.minEnergy)/(self.maxEnergy - self.minEnergy)
 
-    return (x**2,(x-2)**2)
+    def energy(self,state):
+        # return sum(Osyczka2(state))
+        return (sum(self.eval_Osyczka2(state)))
 
-def energy(state,Max,Min):
-    # return (sum(Schaffer(state))-Min)/(Max-Min)
-    return (sum(Schaffer(state)))
+    def Osyczka2constraintCheck(self,x):
+        if (0 <= x[0]+x[1]-2) and (0 <= 6-x[0]-x[1])\
+            and (0 <= 2-x[1]+x[0]) and (0 <= 2-x[0]+3*x[1])\
+                and (0 <= 4 - (x[2]-3)**2-x[3]) and (0 <= (x[4]-3)**3+x[5]-4):
+            return True
+        else:
+            return False
 
-def jump(ce,ne,t):
-    prob = math.exp((ce-ne)*t)
-    assert prob <= 1
-    return (prob > random.random())
+    def randomValidInput(self):
+        ConstraintOk = False
+        time_out = 0
+        while (not ConstraintOk) and (time_out < self.timeout):
+            candidate = [random.uniform(self.min_decision[0],self.max_decision[0]),
+                         random.uniform(self.min_decision[1],self.max_decision[1]),
+                         random.uniform(self.min_decision[2],self.max_decision[2]),
+                         random.uniform(self.min_decision[3],self.max_decision[3]),
+                         random.uniform(self.min_decision[4],self.max_decision[4]),
+                         random.uniform(self.min_decision[5],self.max_decision[5])]
+            ConstraintOk = self.Osyczka2constraintCheck(candidate)
+            time_out+= 1
+        if ConstraintOk:
+            return candidate
+        else:
+            print "error in generating valid input"
+            return [0,0,0,0,0,0]
 
-def test():
+    def indexValidInput(self,old_candidate,index):
+        ConstraintOk = False
+        candidate = copy.copy(old_candidate)
+        time_out = 0
+        while (not ConstraintOk) and (time_out <self.timeout):
+            candidate[index] = random.uniform(self.min_decision[index],self.max_decision[index])
+            ConstraintOk = self.Osyczka2constraintCheck(candidate)
+            time_out+= 1
+        if ConstraintOk:
+            return candidate
+        else:
+            return old_candidate
 
-    mutation_variance = 10
-    Max,Min = MaxMinEnergy((-10**2,10**2))
+    def bestValidInput(self,old_candidate,index):
+        candidate = copy.copy(old_candidate)
+        best_candidate = copy.copy(old_candidate)
+        for iLoop in range(self.stepsize):
+            candidate[index] = self.min_decision[index]+(iLoop/float(self.stepsize))*(self.max_decision[index]-self.min_decision[index])
+            if self.Osyczka2constraintCheck(candidate):
+                if self.norm_energy(candidate)> self.norm_energy(best_candidate):
+                    best_candidate = copy.copy(candidate)
+        return best_candidate
+
+    def maxminOsyczka2(self, nE):
+        # find the empirical minimum and maximum of Osyczka2 model
+
+        min = self.energy(self.randomValidInput())
+        max = min
+
+        for i in range(nE*10):
+            newEnergy = self.energy(self.randomValidInput())
+            if (min > newEnergy):
+                min = newEnergy
+            elif (newEnergy> max):
+                max = newEnergy
+        return (min,max)
 
 
-    # Initial parameters
-    curr_state = random.gauss(10.0,10.0)
-    curr_energy = energy(curr_state,Max,Min)
-    K_temp = 1
-    K_max = 1000
+# Multi-objective optimizer
+def MaxWalkSat(problem):
+    # we are assuming maximization
 
-    # Solution buffer
-    best_state = curr_state
-    best_energy = curr_energy
+    #best_candidate initialization
+    best_candidate = problem.randomValidInput()
+    best_energy = problem.norm_energy(best_candidate)
 
-    op_str = ", {dig:04},  :{en:1.4}, ".format(dig=K_temp,en=best_energy)
-    while K_temp< K_max and curr_energy < Max:
+    for iRetry in range(problem.retries):
+        candidate = problem.randomValidInput()
 
-        #mutation
-        neigh_state = curr_state + random.gauss(0.0,mutation_variance)
-        neigh_energy = energy(neigh_state,Max,Min)
+        old_score = problem.norm_energy(candidate) # for printout only
 
-        if neigh_energy < best_energy: # new best
-            best_state = neigh_state
-            best_energy = neigh_energy
-            op_str+='!'
+        op_str = ", {dig:04},  :{en:1.4}, ".format(dig=0,en=best_energy)
+        for iChng in range(problem.changes):
+            # print "before change"
+            # print "Normalized energy = %f" %problem.norm_energy(candidate)
+            if problem.norm_energy(candidate)> 1.5:
+                return candidate, problem.energy(candidate)
+            else:
+                index = random.randint(0,problem.num_decision-1)
+                if problem.probability < random.random():
+                    #change random setting in index
+                    # print "random index"
+                    candidate = problem.indexValidInput(candidate,index)
+                    # print "Normalized energy = %f" %problem.norm_energy(candidate)
 
-        if neigh_energy < curr_energy: # jump to better
-            curr_state = neigh_state
-            curr_energy = neigh_energy
-            op_str+='+'
-        elif jump(curr_energy,neigh_energy,float(K_temp)/K_max):
-            curr_state = neigh_state
-            curr_energy = neigh_energy
-            op_str+='?'
+                else:
+                    # print "optimize index"
+                    candidate = problem.bestValidInput(candidate,index)
+                    # print "Normalized energy = %f" %problem.norm_energy(candidate)
 
-        op_str+= '.'
-        K_temp+= 1
-        if (K_temp % 25) == 0:
-            op_str+="\n"
+
+                #for printout only
+                if old_score>problem.energy(candidate):
+                    op_str+='?.' #jump
+                else:
+                    op_str+='+.'
+
+            if ((iChng+1) % 25) == 0:
+                op_str+="\n"
+                print op_str
+                op_str = ", {dig:04},  :{en:1.4}, ".format(dig=iChng,en=problem.norm_energy(candidate))
+
+        energy = problem.norm_energy(candidate)
+        if energy > best_energy:
+            best_candidate = copy.copy(candidate)
+            best_energy = energy
+            op_str='!' #new best in retries
             print op_str
-            op_str = ", {dig:04},  :{en:1.4}, ".format(dig=K_temp,en=best_energy)
 
-    return (best_state,best_energy)
 
-(solution, minimum_energy) = test()
-print "Solution, x = %g" %solution
-print "Solution energy = %g" %minimum_energy
+
+    return best_candidate, best_energy
+
+#testing
+prob1 = Osyczka2()
+
+print "Experiment to determine the minimum and maximum energies"
+[minEn,maxEn] = prob1.maxminOsyczka2(1000)
+print "Minimum Energy = %f" %minEn
+print "Maximum Energy = %f \n" %maxEn
+
+
+(solution, maximum_energy) = MaxWalkSat(prob1)
+print "Solution, x = ", solution
+print "Solution energy = %g" %maximum_energy
+
 
