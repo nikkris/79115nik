@@ -12,7 +12,7 @@ class Osyczka2:
         :rtype : object
         """
         self.probability = 0.5
-        self.retries = 10
+        self.retries = 100
         self.changes = 1000
         self.maximization = True
         self.minEnergy = -400

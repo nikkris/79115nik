@@ -8,3 +8,7 @@ The output of the MaxWalkSat algorithm is as follows
 ![Output] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/5/ResultMWS1.png)
 
 ![Output2] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/5/ResultMWS2.png)
+
+The best solution found is given below for 100 retries and 1000 changes:
+
+![Output3] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/5/BestSolution.jpg)
