@@ -11,4 +11,4 @@ The output of the MaxWalkSat algorithm is as follows
 
 The best solution found is given below for 100 retries and 1000 changes:
 
-![Output3] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/5/BestSolution.jpg)
+![Output3] (https://raw.githubusercontent.com/nikkris/79115nik/master/hw/code/5/BestSolution.JPG)
